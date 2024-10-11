@@ -1,60 +1,154 @@
+/* index.css */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
 
-.feedback-form {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .form-title {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .form-input {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .form-textarea {
-    height: 150px;
-    resize: vertical;
-  }
-  
-  .form-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .form-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .success-message {
-    color: green;
-    margin-top: 15px;
-    text-align: center;
-  }
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.feedback-form,
+.admin-title {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-title,
+.admin-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-input {
+  width: 95%;
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.form-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #2980b9;
+}
+
+.form-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.success-message {
+  text-align: center;
+  color: #27ae60;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.admin-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tab-button.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.feedback-list {
+  margin-top: 20px;
+}
+
+.feedback-item {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-email,
+.feedback-text,
+.feedback-sentiment,
+.feedback-overview {
+  margin-bottom: 10px;
+}
+
+.feedback-sentiment,
+.feedback-overview {
+  font-style: italic;
+  color: #7f8c8d;
+}
+
+.image-generator {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.generated-image {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.generated-image img {
+  max-width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
