@@ -4,4 +4,5 @@ const env: { [key: string]: any } = {
   GOOGLE_API_KEY: import.meta.env.VITE_GOOGLE_API_KEY,
 };
 
+
 export default env;
