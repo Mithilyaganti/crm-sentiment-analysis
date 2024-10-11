@@ -1,39 +1,50 @@
 import React, { useState } from "react";
-import { supabase } from "../utils/db";
-import { respond } from "../utils/ai";
+import { supabase } from "../utils/db"; 
+import { respond } from "../utils/ai";  
 
-const generateId = (n: number) => {
-  let id = "";
-  while (id.length < n) {
-    id += Math.random().toString(36).slice(2);
-  }
-  return id.slice(0, n);
+// Function to generate a random ID
+const generateId = () => {
+  // Generate a random int8 (64-bit integer)
+  return Math.floor(Math.random() * 9007199254740992);
 };
 
 export default function Feedback() {
   const [email, setEmail] = useState("");
   const [feedback, setFeedback] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
-    const id = generateId(8);
+    const id = generateId(); 
+
     try {
-      supabase.from("feedback").insert([
+      const aiResult = await respond(feedback);
+
+      if (!aiResult.success) {
+        throw new Error("AI sentiment analysis failed");
+      }
+      const { error } = await supabase.from("feedbacks").insert([
         {
           id,
           email,
           feedback,
-          sentiment: "unknown",
-          overview: "unknown",
+          sentiment: aiResult.sentimentScore || 0, 
+          overview: aiResult.overview || "unknown", 
         },
       ]);
+
+      if (error) throw error;
+
       setSubmitted(true);
       setEmail("");
       setFeedback("");
     } catch (error) {
-      console.log(error);
+      console.error("Error saving feedback:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,9 +52,7 @@ export default function Feedback() {
     <form onSubmit={handleSubmit} className="feedback-form">
       <h2 className="form-title">Business Feedback</h2>
       <div className="form-group">
-        <label htmlFor="email" className="form-label">
-          Email:
-        </label>
+        <label htmlFor="email" className="form-label">Email:</label>
         <input
           type="email"
           id="email"
@@ -55,9 +64,7 @@ export default function Feedback() {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="feedback" className="form-label">
-          Feedback:
-        </label>
+        <label htmlFor="feedback" className="form-label">Feedback:</label>
         <textarea
           id="feedback"
           value={feedback}
@@ -67,12 +74,10 @@ export default function Feedback() {
           placeholder="Enter your feedback"
         />
       </div>
-      <button type="submit" className="form-button">
-        Submit Feedback
+      <button type="submit" className="form-button" disabled={loading}>
+        {loading ? "Submitting..." : "Submit Feedback"}
       </button>
-      {submitted && (
-        <p className="success-message">Thank you for your feedback!</p>
-      )}
+      {submitted && <p className="success-message">Thank you for your feedback!</p>}
     </form>
   );
 }
