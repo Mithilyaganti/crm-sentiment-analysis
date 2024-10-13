@@ -50,4 +50,37 @@ const respond = async (
   }
 };
 
-export { respond };
+const imageGenerationPrompt = async (prompt: string) => {
+  const imagePrompt = `
+    You are an expert prompt engineer specializing in crafting highly detailed prompts for generating visually appealing social media posts. 
+    The user's request is for a social media post that aligns with a business, and you need to enhance the provided prompt with creative elements, visual details, and proper tone. 
+
+    Here is the user's input: "${prompt}"
+
+    Respond in the following JSON format:
+    {
+      "prompt": [YOUR PROPT]
+    }
+
+    Based on this, generate an optimized prompt for creating a high-quality image that reflects the" business's branding and message", ensuring the final result is visually engaging and tailored for a social media post.
+    The image shall contain brading and tagline of the business.
+    generate the prompt for the business social media post generation in 30-40 words 
+  `;
+  try {
+    const result = await model.generateContent(imagePrompt);
+    const responseJson = JSON.parse(result.response.text());
+
+    return {
+      success: true,
+      prompt: responseJson.prompt,
+    };
+  } catch (error) {
+    console.error("Error in AI image generation:", error);
+    return {
+      success: false,
+      prompt: prompt,
+    };
+  }
+};
+
+export { respond, imageGenerationPrompt };
